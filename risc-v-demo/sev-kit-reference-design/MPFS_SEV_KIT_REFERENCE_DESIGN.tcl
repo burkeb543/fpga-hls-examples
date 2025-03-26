@@ -152,46 +152,46 @@ if { [file exists $project_dir/$project_name.prjx] } {
     #This Tcl file sources other Tcl files to build the design(on which recursive export is run) in a bottom-up fashion
 
     #Sourcing the Tcl file in which all the HDL source files used in the design are imported or linked
-    source ${src_path}/hdl_source.tcl
+    safe_source ${src_path}/hdl_source.tcl
     build_design_hierarchy
 
     #Sourcing the Tcl files in which HDL+ core definitions are created for HDL modules
-    source ${src_path}/components/video_fifo.tcl 
-    source ${src_path}/components/apb3_if.tcl
-    source ${src_path}/components/H264/data_packer_h264.tcl
+    safe_source ${src_path}/components/video_fifo.tcl 
+    safe_source ${src_path}/components/apb3_if.tcl
+    safe_source ${src_path}/components/H264/data_packer_h264.tcl
     build_design_hierarchy
 
     #Sourcing the Tcl files for creating individual ${src_path}/components under the top level
-    source ${src_path}/components/Bayer_Interpolation_C0.tcl
-    source ${src_path}/components/CoreAPB3_C0.tcl
-    source ${src_path}/components/CORERESET.tcl
-    source ${src_path}/components/CORERESET_PF_C1.tcl
-    source ${src_path}/components/CORERESET_PF_C2.tcl
-    source ${src_path}/components/CORERESET_PF_C5.tcl
-    source ${src_path}/components/CORERXIODBITALIGN_C1.tcl
-    source ${src_path}/components/DDR_AXI4_ARBITER_PF_C0.tcl
-    source ${src_path}/components/Gamma_Correction_C0.tcl
-    source ${src_path}/components/Image_Enhancement_C0.tcl
-    source ${src_path}/components/IMAGE_SCALER_C0.tcl
-    source ${src_path}/components/INIT_MONITOR.tcl
-    source ${src_path}/components/mipicsi2rxdecoderPF_C0.tcl
-    source ${src_path}/components/PF_CCC_C0.tcl
-    source ${src_path}/components/PF_CCC_C2.tcl
-    source ${src_path}/components/PF_CLK_DIV_C0.tcl
-    source ${src_path}/components/PF_OSC_C0.tcl
-    source ${src_path}/components/H264/RGBtoYCbCr_C0.tcl
-    source ${src_path}/components/PF_XCVR_REF_CLK_C0.tcl
-    source ${src_path}/components/CLOCKS_AND_RESETS.tcl
-    source ${src_path}/components/PF_IOD_GENERIC_RX_C0.tcl
-    source ${src_path}/components/H264/FIC_CONVERTER.tcl
-    source ${src_path}/components/CAM_IOD_TIP_TOP.tcl
-    source ${src_path}/components/IMX334_IF_TOP.tcl
-    source ${src_path}/components/H264/H264_Iframe_Encoder_C0.tcl
-    source ${src_path}/components/H264/H264_DDR_WRITE.tcl
-    source ${src_path}/components/H264/h264_top.tcl
-    source ${src_path}/components/video_processing.tcl
-    source ${src_path}/components/H264/Video_Pipeline.tcl
-    source ${src_path}/components/H264/SEVPFSOC_H264.tcl
+    safe_source ${src_path}/components/Bayer_Interpolation_C0.tcl
+    safe_source ${src_path}/components/CoreAPB3_C0.tcl
+    safe_source ${src_path}/components/CORERESET.tcl
+    safe_source ${src_path}/components/CORERESET_PF_C1.tcl
+    safe_source ${src_path}/components/CORERESET_PF_C2.tcl
+    safe_source ${src_path}/components/CORERESET_PF_C5.tcl
+    safe_source ${src_path}/components/CORERXIODBITALIGN_C1.tcl
+    safe_source ${src_path}/components/DDR_AXI4_ARBITER_PF_C0.tcl
+    safe_source ${src_path}/components/Gamma_Correction_C0.tcl
+    safe_source ${src_path}/components/Image_Enhancement_C0.tcl
+    safe_source ${src_path}/components/IMAGE_SCALER_C0.tcl
+    safe_source ${src_path}/components/INIT_MONITOR.tcl
+    safe_source ${src_path}/components/mipicsi2rxdecoderPF_C0.tcl
+    safe_source ${src_path}/components/PF_CCC_C0.tcl
+    safe_source ${src_path}/components/PF_CCC_C2.tcl
+    safe_source ${src_path}/components/PF_CLK_DIV_C0.tcl
+    safe_source ${src_path}/components/PF_OSC_C0.tcl
+    safe_source ${src_path}/components/H264/RGBtoYCbCr_C0.tcl
+    safe_source ${src_path}/components/PF_XCVR_REF_CLK_C0.tcl
+    safe_source ${src_path}/components/CLOCKS_AND_RESETS.tcl
+    safe_source ${src_path}/components/PF_IOD_GENERIC_RX_C0.tcl
+    safe_source ${src_path}/components/H264/FIC_CONVERTER.tcl
+    safe_source ${src_path}/components/CAM_IOD_TIP_TOP.tcl
+    safe_source ${src_path}/components/IMX334_IF_TOP.tcl
+    safe_source ${src_path}/components/H264/H264_Iframe_Encoder_C0.tcl
+    safe_source ${src_path}/components/H264/H264_DDR_WRITE.tcl
+    safe_source ${src_path}/components/H264/h264_top.tcl
+    safe_source ${src_path}/components/video_processing.tcl
+    safe_source ${src_path}/components/H264/Video_Pipeline.tcl
+    safe_source ${src_path}/components/H264/SEVPFSOC_H264.tcl
 
 
     build_design_hierarchy
@@ -312,13 +312,13 @@ set isNewProject 1
 if {[info exists SMARTHLS]} {
     if {$isNewProject} {
         # Prepare the SmartDesign for HLS integration 
-        source ./script_support/additional_configurations/smarthls/pre_hls_integration.tcl
+        safe_source ./script_support/additional_configurations/smarthls/pre_hls_integration.tcl
     }
 
     # If the SmartHLS variable points to a valid SmartHLS project directory, then compile it.
     # Otherwise, HLS modules can be added later.
     if {[file isdirectory $SMARTHLS]} {
-        source ./script_support/additional_configurations/smarthls/compile_and_integrate_shls_to_refdesign.tcl
+        safe_source ./script_support/additional_configurations/smarthls/compile_and_integrate_shls_to_refdesign.tcl
     }
 }
 
